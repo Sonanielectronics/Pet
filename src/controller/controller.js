@@ -1224,8 +1224,18 @@ class class1 {
 
             if (req.files && req.body.Name && req.body.Type && req.body.Breed && req.body.BOD && req.body.Gender && req.body.Weight && req.body.Price && req.body.Address && req.body.Age && req.body.Colour && req.body.Length && req.body.Hight && req.body.Description && req.body.Size) {
 
-                var User = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
 
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+                
                 if (User) {
 
                     function compareDates(inputDate, inputDate2) {
