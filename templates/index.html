@@ -1,0 +1,20 @@
+<body>
+    <script type="text/javascript">
+    var configuration = {
+        widgetId: "336c626f6d71303233313338",
+        tokenAuth: "411076TDWDzssJA0CS656afc8aP1",
+        identifier: "",
+        // exposeMethods: "<true | false> (optional)",  // When true will expose the methods for OTP verification. Refer 'How it works?' for more details
+        success: (data) => {
+            // get verified token in response
+            console.log('success response', data);
+        },
+        failure: (error) => {
+            // handle error
+            console.log('failure reason', error);
+        },
+    
+    };
+    </script>
+    <script type="text/javascript" onload="initSendOTP(configuration)" src="https://control.msg91.com/app/assets/otp-provider/otp-provider.js"> </script>
+    </body>
