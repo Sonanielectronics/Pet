@@ -60,13 +60,19 @@ var AccountSchema = new mongoose.Schema({
     },
     TodatLatViewPetInNumber: {
         type: Number
+    },
+    Favourite: {
+        type: Array
+    },
+    Address: {
+        type: String
     }
 });
 
 var Todo = mongoose.model("AccountCollection", AccountSchema);
 
 var PetSchema = new mongoose.Schema({
-    OwnerName: {
+    OwnerNameId: {
         type: String
     },
     Name: {
@@ -123,7 +129,7 @@ var PetSchema = new mongoose.Schema({
 var Todo2 = mongoose.model("PetCollection", PetSchema);
 
 var NotificationSchema = new mongoose.Schema({
-    OwnerName: {
+    OwnerNameId: {
         type: String
     },
     PlanType: {
@@ -134,9 +140,32 @@ var NotificationSchema = new mongoose.Schema({
     },
     PlanPurchaseDate: {
         type: String
+    },
+    Status: {
+        type: String
+    },
+    Time: {
+        type: String
     }
 });
 
 var Todo3 = mongoose.model("NotificationCollection", NotificationSchema);
 
-module.exports = { Todo , Todo2 , Todo3 };
+var PaymentSchema = new mongoose.Schema({
+    OwnerNameId: {
+        type: String
+    },
+    Time: {
+        type: String
+    },
+    Amount: {
+        type: String
+    },
+    Status: {
+        type: String
+    }
+});
+
+var Todo4 = mongoose.model("PaymentCollection", PaymentSchema);
+
+module.exports = { Todo , Todo2 , Todo3 , Todo4 };

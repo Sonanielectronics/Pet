@@ -38,12 +38,25 @@ router.post("/NewPassword", class1.f);
 router.post("/PetUpload", verifyToken, upload.array('Image'), class1.g);
 router.post("/PetSortByTypes", verifyToken, class1.h);
 router.post("/FilterisePet", verifyToken, class1.i);
-router.post("/FilterisePet2", verifyToken, class1.i2);
-router.post("/PlanPurchaseByCustomer", verifyToken, class1.j);
-router.post("/PetEdit", verifyToken, upload.array('Image'), class1.k);
-router.get("/ViewMultiplePet", verifyToken, class1.l);
-router.get("/ViewSinglePet", verifyToken, class1.m);
-router.post("/EditLoginAccountdetails", verifyToken, upload.array('Image'), class1.n);
-router.get("/ViewLoginAccountdetails", verifyToken, class1.o);
+router.post("/FilterisePet2", verifyToken, class1.j);
+router.post("/PlanPurchaseByCustomer", verifyToken, class1.k);
+
+router.post("/PetEdit", verifyToken, upload.array('Image'), class1.l);
+router.get("/ViewMultiplePet", verifyToken, class1.m);
+router.get("/ViewSinglePet", verifyToken, class1.n);
+router.post("/EditLoginAccountdetails", verifyToken, upload.array('Image'), class1.o);
+router.get("/ViewLoginAccountdetails", verifyToken, class1.p);
+
+router.post("/like", verifyToken, class1.q);
+router.post("/Unlike", verifyToken, class1.r);
+router.post("/Favourite", verifyToken, class1.s);
+router.post("/FavouriteWithFilter", verifyToken, class1.t);
+router.get("/Notification", verifyToken, class1.u);
+router.get("/History", verifyToken, class1.v);
+router.post("/MainPage", verifyToken, class1.w);
+router.post("/Map", verifyToken, class1.x);
+router.post("/Adoption", verifyToken, class1.y); // Define Only Route
+router.post("/AdsPage1", verifyToken, class1.z);
+router.post("/AdsPage2", verifyToken, class1.A);
 
 module.exports = router;

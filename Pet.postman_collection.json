@@ -1,0 +1,852 @@
+{
+	"info": {
+		"_postman_id": "6ae4528e-afc3-4bfe-aa62-02c062cf62c1",
+		"name": "Pet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29794386"
+	},
+	"item": [
+		{
+			"name": "Nikunj",
+			"item": [
+				{
+					"name": "GetData",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:4000/GetData",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"GetData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetData Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/Get",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"Get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Otp",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authkey",
+								"value": "402941AZXuEbdz64d1c980P1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://control.msg91.com/api/v5/otp/retry?retrytype=text&mobile=919106850877",
+							"protocol": "https",
+							"host": [
+								"control",
+								"msg91",
+								"com"
+							],
+							"path": [
+								"api",
+								"v5",
+								"otp",
+								"retry"
+							],
+							"query": [
+								{
+									"key": "retrytype",
+									"value": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "919106850877"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendOtp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authkey",
+								"value": "402941AZXuEbdz64d1c980P1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://control.msg91.com/api/v5/otp?template_id=6571b120d6fc0576576e0313&mobile=919106850877&otp=123456",
+							"protocol": "https",
+							"host": [
+								"control",
+								"msg91",
+								"com"
+							],
+							"path": [
+								"api",
+								"v5",
+								"otp"
+							],
+							"query": [
+								{
+									"key": "template_id",
+									"value": "6571b120d6fc0576576e0313"
+								},
+								{
+									"key": "mobile",
+									"value": "919106850877"
+								},
+								{
+									"key": "otp",
+									"value": "123456"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Name 2",
+							"type": "text"
+						},
+						{
+							"key": "EmailORPhone",
+							"value": "8866718270",
+							"type": "text"
+						},
+						{
+							"key": "PassWord",
+							"value": "Welcome1",
+							"type": "text"
+						},
+						{
+							"key": "Category",
+							"value": "Individual",
+							"type": "text"
+						},
+						{
+							"key": "Category",
+							"value": "Shop Owner",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/1.jpg"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/2.jpg",
+							"disabled": true
+						},
+						{
+							"key": "EmailORPhone2",
+							"value": "9727579341",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url2}}/Register",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"Register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EmailORPhone\":\"8866718270\",\r\n    \"PassWord\":\"Welcome1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/Login",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginVerifyOtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EmailORPhone\":\"8866718270\",\r\n    \"otp\":\"183184\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/LoginVerifyOtp",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"LoginVerifyOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ForgetPassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EmailORPhone\":\"919106850877\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/ForgetPassword",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"ForgetPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewPassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EmailORPhone\":\"9727579341\",\r\n    \"otp\":\"432665\",\r\n    \"PassWord\":\"Welcome\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/NewPassword",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"NewPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ForgetPassworVerifyOtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EmailORPhone\":\"9727579341\",\r\n    \"otp\":\"585670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/ForgetPassworVerifyOtp",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"ForgetPassworVerifyOtp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PetUpload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiI4ODY2NzE4MjcwIiwiaWF0IjoxNzAyMTMwMjgwfQ.pE9FSrtilUUNXixcTv56WJd4ZM8wkmK0kZyEtZCRsmQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Pikachu",
+							"type": "text"
+						},
+						{
+							"key": "Type",
+							"value": "Angora",
+							"type": "text"
+						},
+						{
+							"key": "BOD",
+							"value": "1999-10-15",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "Female",
+							"type": "text"
+						},
+						{
+							"key": "Weight",
+							"value": "35",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/3.jpg"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/car5.png",
+							"disabled": true
+						},
+						{
+							"key": "Address",
+							"value": "Vedroad , surat",
+							"type": "text"
+						},
+						{
+							"key": "Breed",
+							"value": "Persia",
+							"type": "text"
+						},
+						{
+							"key": "Price",
+							"value": "$ 1",
+							"type": "text"
+						},
+						{
+							"key": "Age",
+							"value": "4 year",
+							"type": "text"
+						},
+						{
+							"key": "Colour",
+							"value": "Red",
+							"type": "text"
+						},
+						{
+							"key": "Length",
+							"value": "7-9",
+							"type": "text"
+						},
+						{
+							"key": "Hight",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "ext ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a\next ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a   ",
+							"type": "text"
+						},
+						{
+							"key": "Size",
+							"value": "Small",
+							"type": "text"
+						},
+						{
+							"key": "Category",
+							"value": "Dog",
+							"type": "text"
+						},
+						{
+							"key": "Category",
+							"value": "Cat",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url2}}/PetUpload",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"PetUpload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PetEdit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiI4ODY2NzE4MjcwIiwiaWF0IjoxNzAyMTMwMjgwfQ.pE9FSrtilUUNXixcTv56WJd4ZM8wkmK0kZyEtZCRsmQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Pikachu Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Type",
+							"value": "Angora Bana2",
+							"type": "text"
+						},
+						{
+							"key": "BOD",
+							"value": "1999-10-15 Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "Female Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Weight",
+							"value": "35 Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/4.jpg"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/car5.png",
+							"disabled": true
+						},
+						{
+							"key": "Address",
+							"value": "Vedroad , surat Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Breed",
+							"value": "Persia Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Price",
+							"value": "$ 1 Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Age",
+							"value": "4 year Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Colour",
+							"value": "Red Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Length",
+							"value": "7-9 Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Hight",
+							"value": "2 Bana2",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "Bana2 ext ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a\next ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a   2",
+							"type": "text"
+						},
+						{
+							"key": "Size",
+							"value": "Small Bana2",
+							"type": "text"
+						},
+						{
+							"key": "_id",
+							"value": "657474df77671bba42ac94fb",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url2}}/PetEdit",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"PetEdit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewPet",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url2}}/ViewMultiplePet",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"ViewMultiplePet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewSinglePet",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url2}}/ViewSinglePet",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"ViewSinglePet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PetSortByTypes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Types\":\"Lowest Price\", // Types Must Be Latest Product , Best Selling , Lowest Price or Highest Price\r\n    \"Latitude\":\"687188\",\r\n    \"longitude\":\"687188\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/PetSortByTypes",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"PetSortByTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterisePet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Gender\":\"Male\",\r\n    // \"Breed\":\"Mine Coon\",\r\n    // \"Address\":\"Ved Road , Surat\",\r\n    // \"Size\":\"Small\",\r\n    // \"LowestPrice\":\"11\",\r\n    // \"HighestPrice\":\"12\",\r\n    \"AgeMesureByParameter\":\"Day\", // AgeMesureByParameter Must Be Day , Month or Year\r\n    \"Age\":\"2-2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/FilterisePet",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"FilterisePet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterisePet2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDE1MDcwNDB9.sWR0PhRZIuHsrV2lyGWlaYeIvGGRnNoWX6NW-IP455M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Category\":\"Cat\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/FilterisePet2",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"FilterisePet2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PlanPurchaseByCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiI4ODY2NzE4MjcwIiwiaWF0IjoxNzAyMTMwMjgwfQ.pE9FSrtilUUNXixcTv56WJd4ZM8wkmK0kZyEtZCRsmQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"PlanType\":\"Monthly\" //Value Must Be Monthly or Yearly\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url2}}/PlanPurchaseByCustomer",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"PlanPurchaseByCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewLoginAccountdetails",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiJHaG9naGFyaW42NUBHbWFpbC5jb20iLCJpYXQiOjE3MDIxMTE3MjJ9.m-YYKarC-KMFupi6VNwVAuVt_RE885vfmOoeM0U5aww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url2}}/ViewLoginAccountdetails",
+					"host": [
+						"{{Url2}}"
+					],
+					"path": [
+						"ViewLoginAccountdetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditLoginAccountdetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbE9SUGhvbmUiOiI4ODY2NzE4MjcwIiwiaWF0IjoxNzAyMTMwMjgwfQ.pE9FSrtilUUNXixcTv56WJd4ZM8wkmK0kZyEtZCRsmQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Shop Name 2",
+							"type": "text"
+						},
+						{
+							"key": "Category",
+							"value": "Shop Owner",
+							"type": "text"
+						},
+						{
+							"key": "EmailORPhone",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "EmailORPhone2",
+							"value": "8866718270",
+							"type": "text"
+						},
+						{
+							"key": "PassWord",
+							"value": "Welcome1",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/2.jpg"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/MAX/Desktop/23 Oct - Copy - Copy/public/2.jpg",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "43.204.114.140/EditLoginAccountdetails",
+					"host": [
+						"43",
+						"204",
+						"114",
+						"140"
+					],
+					"path": [
+						"EditLoginAccountdetails"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

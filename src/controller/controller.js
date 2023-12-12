@@ -1,4 +1,4 @@
-var { Todo, Todo2, Todo3 } = require("../model/schema");
+var { Todo, Todo2, Todo3, Todo4 } = require("../model/schema");
 const HTTP = require("../../constant/response.constant");
 
 var jwt = require("jsonwebtoken");
@@ -10,8 +10,8 @@ function sendEmail(to, subject, text) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "shzksklf315@gmail.com",
-            pass: "hbsehwvznlahcxno",
+            user: "llittletails@gmail.com",
+            pass: "uzvc ygzq cdnj jqoj",
         },
     });
     const mailOptions = {
@@ -239,7 +239,9 @@ class class1 {
                             LastPetEditedDate: PlanExpiredDate,
                             TodatLatEditedPetInNumber: 0,
                             LastPetViewdDate: PlanExpiredDate,
-                            TodatLatViewPetInNumber: 0
+                            TodatLatViewPetInNumber: 0,
+                            Favourite: [],
+                            Address: req.body.Address
                         })
 
                         if (req.body.EmailORPhone && req.body.EmailORPhone2) {
@@ -747,7 +749,7 @@ class class1 {
                                     }
 
                                     let data = new Todo2({
-                                        OwnerName: req.EmailORPhone,
+                                        OwnerNameId: User._id,
                                         Name: req.body.Name,
                                         Image: Images,
                                         Type: req.body.Type,
@@ -811,7 +813,7 @@ class class1 {
                                 }
 
                                 let data = new Todo2({
-                                    OwnerName: req.EmailORPhone,
+                                    OwnerNameId: User._id,
                                     Name: req.body.Name,
                                     Image: Images,
                                     Type: req.body.Type,
@@ -1129,7 +1131,7 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static i2 = async (req, res) => {
+    static j = async (req, res) => {
         try {
 
             if (req.body.Category) {
@@ -1150,10 +1152,10 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static j = async (req, res) => {
+    static k = async (req, res) => {
         try {
 
-            if (req.body.PlanType) {
+            if (req.body.PlanType && req.body.Amount) {
 
                 var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
                 var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
@@ -1192,13 +1194,67 @@ class class1 {
                     User.PlanExpiredDate = await PlanExpiredDate;
                     await User.save();
 
+                    const suratTimezone = 'Asia/Kolkata';
+                    const currentTimeInSurat = moment().tz(suratTimezone).format('YYYY-MM-DDTHH:mm:ss');
+
+                    const currentDate3 = new Date(currentTimeInSurat);
+
+                    var currentYear = await currentDate3.getFullYear();
+                    var currentMonth;
+                    var currentDay;
+                    var currentHours;
+                    var currentMinutes;
+                    var currentSeconds;
+
+                    if (currentDate3.getMonth() < 10) {
+                        var currentMonth = await `0${currentDate3.getMonth() + 1}`;
+                    } else {
+                        var currentMonth = await currentDate3.getMonth() + 1;
+                    }
+
+                    if (currentDate3.getDate() < 10) {
+                        var currentDay = await `0${currentDate3.getDate()}`;
+                    } else {
+                        var currentDay = await currentDate3.getDate();
+                    }
+
+                    if (currentDate3.getHours() < 10) {
+                        var currentHours = await `0${currentDate3.getHours()}`;
+                    } else {
+                        var currentHours = await currentDate3.getHours();
+                    }
+
+                    if (currentDate3.getMinutes() < 10) {
+                        var currentMinutes = await `0${currentDate3.getMinutes()}`;
+                    } else {
+                        var currentMinutes = await currentDate3.getMinutes();
+                    }
+
+                    if (currentDate3.getSeconds() < 10) {
+                        var currentSeconds = await `0${currentDate3.getSeconds()}`;
+                    } else {
+                        var currentSeconds = await currentDate3.getSeconds();
+                    }
+
+                    const formattedDateTime = `${currentYear} ${currentMonth} ${currentDay} ${currentHours} ${currentMinutes} ${currentSeconds}`;
+
                     let data = new Todo3({
-                        OwnerName: req.EmailORPhone,
+                        OwnerNameId: User._id,
                         PlanType: req.body.PlanType,
                         PlanExpiredDate: PlanExpiredDate,
-                        PlanPurchaseDate: PlanPurchaseDate
+                        PlanPurchaseDate: PlanPurchaseDate,
+                        Status: "Not Read",
+                        Time: formattedDateTime
                     })
                     await data.save();
+
+                    let data2 = new Todo4({
+                        OwnerNameId: User._id,
+                        Time: formattedDateTime,
+                        Amount: req.body.Amount,
+                        Status: "Deposit"
+                    })
+                    await data2.save();
 
                     var a = { "message": "Plan Purchase", "status": `${HTTP.SUCCESS}` }
                     res.status(HTTP.SUCCESS).json(a);
@@ -1219,7 +1275,7 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static k = async (req, res) => {
+    static l = async (req, res) => {
         try {
 
             if (req.files && req.body.Name && req.body.Type && req.body.Breed && req.body.BOD && req.body.Gender && req.body.Weight && req.body.Price && req.body.Address && req.body.Age && req.body.Colour && req.body.Length && req.body.Hight && req.body.Description && req.body.Size) {
@@ -1235,7 +1291,7 @@ class class1 {
                     // var User = await User2
                     var User = await User3
                 }
-                
+
                 if (User) {
 
                     function compareDates(inputDate, inputDate2) {
@@ -1442,10 +1498,20 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static l = async (req, res) => {
+    static m = async (req, res) => {
         try {
 
-            var User = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+            if (User2) {
+                var User = await User2
+            } else if (User3) {
+                var User = await User3
+            } else {
+                // var User = await User2
+                var User = await User3
+            }
 
             if (User) {
 
@@ -1545,10 +1611,20 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static m = async (req, res) => {
+    static n = async (req, res) => {
         try {
 
-            var User = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+            if (User2) {
+                var User = await User2
+            } else if (User3) {
+                var User = await User3
+            } else {
+                // var User = await User2
+                var User = await User3
+            }
 
             if (User) {
 
@@ -1672,7 +1748,7 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static n = async (req, res) => {
+    static o = async (req, res) => {
         try {
 
             var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
@@ -1805,7 +1881,7 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
-    static o = async (req, res) => {
+    static p = async (req, res) => {
         try {
 
             var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
@@ -1842,6 +1918,532 @@ class class1 {
                 res.status(HTTP.UNAUTHORIZED).json(response);
             }
 
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static q = async (req, res) => {
+        try {
+
+            if (req.body._id && req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User.Favourite.includes(req.body._id)) {
+
+                    var a = { "message": "Already Added", "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(a);
+
+                } else {
+
+                    await User.Favourite.push(req.body._id);
+                    await User.save();
+
+                    var a = { "message": "Pet Added Sucessfully", "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(a);
+
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static r = async (req, res) => {
+        try {
+
+            if (req.body._id && req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User.Favourite.includes(req.body._id)) {
+
+                    User.Favourite = await User.Favourite.filter(item => item !== req.body._id);
+                    User.save();
+
+                    var a = { "message": "Pet Remove Sucessfully", "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(a);
+
+                } else {
+
+                    var a = { "message": "First Added Into Favourite", "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(a);
+
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static s = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                var SendData = [];
+
+                for (var i = 0; i < User.Favourite.length; i++) {
+
+                    var User4 = await Todo2.findOne({ _id: User.Favourite[i] })
+                    await SendData.push(User4)
+
+                }
+
+                var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                res.status(HTTP.SUCCESS).json(message);
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static t = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone && req.body.Category) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                var SendData = [];
+
+                for (var i = 0; i < User.Favourite.length; i++) {
+
+                    var User4 = await Todo2.findOne({ _id: User.Favourite[i] })
+
+
+                    if (User4.Category == req.body.Category) {
+                        await SendData.push(User4)
+                    }
+
+                }
+
+                var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                res.status(HTTP.SUCCESS).json(message);
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static u = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var User4 = await Todo3.find({ OwnerNameId: User._id })
+
+                    var SendData = [];
+
+                    for (var i = 0; i < User4.length; i++) {
+
+                        var PushElement = {
+                            "PlanType": User4[i].PlanType,
+                            "PlanExpiredDate": User4[i].PlanExpiredDate,
+                            "PlanPurchaseDate": User4[i].PlanPurchaseDate,
+                            "DisplayProfile": User.Image,
+                            "Name": User.Name,
+                            "Status": User4[i].Status,
+                            "Time": User4[i].Time,
+                            "Contain": "No idea"
+                        }
+
+                        await SendData.push(PushElement);
+
+                    }
+
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static v = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var User4 = await Todo4.find({ OwnerNameId: User._id })
+
+                    var SendData = [];
+
+                    for (var i = 0; i < User4.length; i++) {
+
+                        var PushElement = {
+                            "Name": User.Name,
+                            "Time": User4[i].Time,
+                            "Status": User4[i].Status,
+                            "Amount": User4[i].Amount,
+                        }
+
+                        await SendData.push(PushElement);
+
+                    }
+
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static w = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone && req.body._id) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var User4 = await Todo2.findOne({ _id: req.body._id })
+
+                    var SendData = {
+                        "OwnerImage": User.Image,
+                        "PetImage": User4.Image,
+                        "OwnerName": User.Name,
+                        "PetName": User4.Name,
+                        "Address": User4.Address,
+                        "Age": User4.Age,
+                        "Sex": User4.Gender,
+                        "Type": User4.Type,
+                        "Description": "No idea",
+                    }
+
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static x = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    if(req.body.Address){
+                        var User4 = await Todo2.find({ Address:req.body.Address })
+                    }else{
+                        var User4 = await Todo2.find({})
+                    }
+
+                    var SendData = [];
+
+                    for(var i=0;i<User4.length;i++){
+
+                        var PushElement = {
+                            "Image": User4[i].Image,
+                            "Name": User4[i].Name,
+                            "Rating": "No idea",
+                            "Time": "No idea"
+                        }
+
+                        await SendData.push(PushElement)
+                    }
+
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static y = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var SendData = [];
+
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static z = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var SendData = {
+                        "Image": User.Image,
+                        "Name": User.Name,
+                        "Address": User.Address,
+                        "Description": "No idea",
+                    }
+                    
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static A = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var User4 = await Todo2.find({ OwnerNameId:User._id })
+
+                    var SendData = {
+                        "Image": User.Image,
+                        "Name": User.Name,
+                        "Category": User.Category,
+                        "Ads":User4,
+                    }
+                    
+                    var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
 
         } catch (e) {
             console.log(e);
