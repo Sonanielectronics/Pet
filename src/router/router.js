@@ -59,4 +59,8 @@ router.post("/Adoption", verifyToken, class1.y); // Define Only Route
 router.post("/AdsPage1", verifyToken, class1.z);
 router.post("/AdsPage2", verifyToken, class1.A);
 
+router.get("/Plan", verifyToken, class1.B);
+router.post("/CoinPurchaseByCustomer", verifyToken, class1.C);
+router.post("/Chat", verifyToken, class1.D);
+
 module.exports = router;

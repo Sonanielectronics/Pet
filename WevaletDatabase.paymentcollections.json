@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "6570a15f4dd66323e537da2d"
+  },
+  "Plan": "Single Payment",
+  "PlanAmount": "100",
+  "ActualPrice": "",
+  "Message": "",
+  "OffAmount": ""
+},
+{
+  "_id": {
+    "$oid": "6570a1a34dd66323e537da2f"
+  },
+  "Plan": "Half Yearly Payment",
+  "PlanAmount": "2000",
+  "ActualPrice": "",
+  "Message": "Deucation on 5th of 6th month",
+  "OffAmount": ""
+},
+{
+  "_id": {
+    "$oid": "657348ce4dd66323e537da5d"
+  },
+  "Plan": "Yearly Payment",
+  "PlanAmount": "3500",
+  "ActualPrice": "",
+  "Message": "One Time Payment",
+  "OffAmount": ""
+}]

@@ -66,6 +66,12 @@ var AccountSchema = new mongoose.Schema({
     },
     Address: {
         type: String
+    },
+    Coin: {
+        type: String
+    },
+    Connect: {
+        type: Array
     }
 });
 
@@ -168,4 +174,24 @@ var PaymentSchema = new mongoose.Schema({
 
 var Todo4 = mongoose.model("PaymentCollection", PaymentSchema);
 
-module.exports = { Todo , Todo2 , Todo3 , Todo4 };
+var PlanSchema = new mongoose.Schema({
+    Plan: {
+      type: String,
+    },
+    PlanAmount: {
+      type: String,
+    },
+    ActualPrice: {
+      type: String,
+    },
+    Message: {
+      type: String,
+    },
+    OffAmount: {
+      type: String,
+    }
+  });
+  
+  var Todo5 = mongoose.model("Plancollection", PlanSchema);
+
+module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 };

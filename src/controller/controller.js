@@ -1,4 +1,4 @@
-var { Todo, Todo2, Todo3, Todo4 } = require("../model/schema");
+var { Todo, Todo2, Todo3, Todo4, Todo5 } = require("../model/schema");
 const HTTP = require("../../constant/response.constant");
 
 var jwt = require("jsonwebtoken");
@@ -34,7 +34,7 @@ const moment = require('moment-timezone');
 require('dotenv').config();
 
 var SECRET_KEY = process.env.SECRET_KEY || "YOURSECRETKEYGOESHERE";
-var PUSHDATALOCATION = process.env.PUSHDATALOCATION || "https://wevalet.s3.amazonaws.com";
+var PUSHDATALOCATION = process.env.PUSHDATALOCATION || "https://littletailsbucket.s3.ap-south-1.amazonaws.com";
 
 const os = require('os');
 
@@ -241,7 +241,8 @@ class class1 {
                             LastPetViewdDate: PlanExpiredDate,
                             TodatLatViewPetInNumber: 0,
                             Favourite: [],
-                            Address: req.body.Address
+                            Address: req.body.Address,
+                            Coin: 0
                         })
 
                         if (req.body.EmailORPhone && req.body.EmailORPhone2) {
@@ -2280,15 +2281,15 @@ class class1 {
 
                 if (User) {
 
-                    if(req.body.Address){
-                        var User4 = await Todo2.find({ Address:req.body.Address })
-                    }else{
+                    if (req.body.Address) {
+                        var User4 = await Todo2.find({ Address: req.body.Address })
+                    } else {
                         var User4 = await Todo2.find({})
                     }
 
                     var SendData = [];
 
-                    for(var i=0;i<User4.length;i++){
+                    for (var i = 0; i < User4.length; i++) {
 
                         var PushElement = {
                             "Image": User4[i].Image,
@@ -2384,7 +2385,7 @@ class class1 {
                         "Address": User.Address,
                         "Description": "No idea",
                     }
-                    
+
                     var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
                     res.status(HTTP.SUCCESS).json(message);
 
@@ -2423,17 +2424,311 @@ class class1 {
 
                 if (User) {
 
-                    var User4 = await Todo2.find({ OwnerNameId:User._id })
+                    var User4 = await Todo2.find({ OwnerNameId: User._id })
 
                     var SendData = {
                         "Image": User.Image,
                         "Name": User.Name,
                         "Category": User.Category,
-                        "Ads":User4,
+                        "Ads": User4,
                     }
-                    
+
                     var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
                     res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static B = async (req, res) => {
+        try {
+
+            if (req.EmailORPhone) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var User4 = await Todo5.find({})
+
+                    var message = { "message": "Data Load Successfully", "data": User4, "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(message);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static C = async (req, res) => {
+        try {
+
+            if (req.body.Amount) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    var Coin = Number(User.Coin) + (req.body.Amount * 4);
+                    User.Coin = Coin;
+                    await User.save();
+
+                    var a = { "message": "Coin Purchase", "status": `${HTTP.SUCCESS}` }
+                    res.status(HTTP.SUCCESS).json(a);
+
+                } else {
+                    const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                    res.status(HTTP.UNAUTHORIZED).json(response);
+                }
+
+            } else {
+                var a = { "message": "Insufficient Data", "status": `${HTTP.BAD_REQUEST}` }
+                res.status(HTTP.BAD_REQUEST).json(a);
+            }
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static D = async (req, res) => {
+        try {
+
+            if (req.body._id) {
+
+                var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+                var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+                if (User2) {
+                    var User = await User2
+                } else if (User3) {
+                    var User = await User3
+                } else {
+                    // var User = await User2
+                    var User = await User3
+                }
+
+                if (User) {
+
+                    if (User.Connect.includes(req.body._id)) {
+
+                        var a = { "message": "You have Already Connected", "status": `${HTTP.SUCCESS}` }
+                        res.status(HTTP.SUCCESS).json(a);
+
+                    } else {
+
+                        var Coin = Number(User.Coin);
+
+                        if(2 <= Coin){
+
+                            User.Coin= Coin - 2 ;
+                            User.Connect.push(req.body._id)
+                            await User.save();
+
+                            var a = { "message": "You have Added New Connect", "status": `${HTTP.SUCCESS}` }
+                            res.status(HTTP.SUCCESS).json(a);
+                        
+                        }else{
+
+                            var a = { "message": "Insufficient Coin", "status": `${HTTP.UNAUTHORIZED}` }
+                            res.status(HTTP.UNAUTHORIZED).json(a);
+
+                        }
+
+                    }
+
+                    // if (-1 < a) {
+
+                    //     const suratTimezone = 'Asia/Kolkata';
+                    //     const currentTimeInSurat = moment().tz(suratTimezone).format('YYYY-MM-DDTHH:mm:ss');
+
+                    //     const currentDate = new Date(currentTimeInSurat);
+
+                    //     var currentYear = await currentDate.getFullYear();
+                    //     var currentMonth;
+                    //     var currentDay;
+                    //     var currentHours;
+                    //     var currentMinutes;
+                    //     var currentSeconds;
+
+                    //     if (currentDate.getMonth() < 10) {
+                    //         var currentMonth = await `0${currentDate.getMonth() + 1}`;
+                    //     } else {
+                    //         var currentMonth = await currentDate.getMonth() + 1;
+                    //     }
+
+                    //     if (currentDate.getDate() < 10) {
+                    //         var currentDay = await `0${currentDate.getDate()}`;
+                    //     } else {
+                    //         var currentDay = await currentDate.getDate();
+                    //     }
+
+                    //     if (currentDate.getHours() < 10) {
+                    //         var currentHours = await `0${currentDate.getHours()}`;
+                    //     } else {
+                    //         var currentHours = await currentDate.getHours();
+                    //     }
+
+                    //     if (currentDate.getMinutes() < 10) {
+                    //         var currentMinutes = await `0${currentDate.getMinutes()}`;
+                    //     } else {
+                    //         var currentMinutes = await currentDate.getMinutes();
+                    //     }
+
+                    //     if (currentDate.getSeconds() < 10) {
+                    //         var currentSeconds = await `0${currentDate.getSeconds()}`;
+                    //     } else {
+                    //         var currentSeconds = await currentDate.getSeconds();
+                    //     }
+
+                    //     const formattedDateTime = `${currentYear} ${currentMonth} ${currentDay} ${currentHours} ${currentMinutes} ${currentSeconds}`;
+
+                    //     const files = req.files;
+
+                    //     const Images = [];
+
+                    //     if (User.PlanType == "Monthly") {
+
+                    //         if (User.LastPetEditedDate == inputDateTime3) {
+
+                    //             if (User.TodatLatEditedPetInNumber < 5) {
+
+                    //                 User.TodatLatEditedPetInNumber = await User.TodatLatEditedPetInNumber + 1;
+                    //                 await User.save();
+
+                    //                 for (let i = 0; i < files.length; i++) {
+
+                    //                     const file = files[i];
+
+                    //                     const fileExt = path.extname(file.originalname);
+                    //                     const fileName = formattedDateTime + (i + 1) + fileExt;
+
+                    //                     const s3 = new AWS.S3({
+                    //                         accessKeyId: process.env.AWS_ACCESS_KEY,
+                    //                         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                    //                     });
+
+                    //                     const params = {
+                    //                         Bucket: process.env.AWS_S3_BUCKET,
+                    //                         Key: `${fileName}`,
+                    //                         Body: file.buffer,
+                    //                         ACL: 'public-read',
+                    //                         ContentType: file.mimetype,
+                    //                     };
+
+                    //                     const data = await s3.upload(params).promise();
+                    //                     var dataKey = data.Key
+                    //                     var pushDataLocation = `${PUSHDATALOCATION}/${dataKey}`
+                    //                     await Images.push(pushDataLocation);
+
+                    //                 }
+
+                    //                 var pet = await Todo2.findOneAndUpdate({ _id: req.body._id }, { $set: { Name: req.body.Name, Type: req.body.Type, Breed: req.body.Breed, BOD: req.body.BOD, Gender: req.body.Gender, Weight: req.body.Weight, Price: req.body.Price, Address: req.body.Address, Age: req.body.Age, Colour: req.body.Colour, Length: req.body.Length, Hight: req.body.Hight, Description: req.body.Description, Size: req.body.Size, Image: Images } });
+                    //                 await pet.save();
+
+                    //                 var a = { "message": "Pet Edit Successfully", "status": `${HTTP.SUCCESS}` }
+                    //                 res.status(HTTP.SUCCESS).json(a);
+
+                    //             } else {
+
+                    //                 var a = { "message": "You Can Not Upload More Pet Today", "status": `${HTTP.UNAUTHORIZED}` }
+                    //                 res.status(HTTP.UNAUTHORIZED).json(a);
+
+                    //             }
+
+                    //         } else {
+
+                    //             User.LastPetEditedDate = await inputDateTime3;
+                    //             User.TodatLatEditedPetInNumber = await 1;
+                    //             await User.save();
+
+                    //             for (let i = 0; i < files.length; i++) {
+
+                    //                 const file = files[i];
+
+                    //                 const fileExt = path.extname(file.originalname);
+                    //                 const fileName = formattedDateTime + (i + 1) + fileExt;
+
+                    //                 const s3 = new AWS.S3({
+                    //                     accessKeyId: process.env.AWS_ACCESS_KEY,
+                    //                     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                    //                 });
+
+                    //                 const params = {
+                    //                     Bucket: process.env.AWS_S3_BUCKET,
+                    //                     Key: `${fileName}`,
+                    //                     Body: file.buffer,
+                    //                     ACL: 'public-read',
+                    //                     ContentType: file.mimetype,
+                    //                 };
+
+                    //                 const data = await s3.upload(params).promise();
+                    //                 var dataKey = data.Key
+                    //                 var pushDataLocation = `${PUSHDATALOCATION}/${dataKey}`
+                    //                 await Images.push(pushDataLocation);
+
+                    //             }
+
+                    //             var pet = await Todo2.findOneAndUpdate({ _id: req.body._id }, { $set: { Name: req.body.Name, Type: req.body.Type, Breed: req.body.Breed, BOD: req.body.BOD, Gender: req.body.Gender, Weight: req.body.Weight, Price: req.body.Price, Address: req.body.Address, Age: req.body.Age, Colour: req.body.Colour, Length: req.body.Length, Hight: req.body.Hight, Description: req.body.Description, Size: req.body.Size, Image: Images } });
+                    //             await pet.save();
+
+                    //             var a = { "message": "Pet Edit Successfully", "status": `${HTTP.SUCCESS}` }
+                    //             res.status(HTTP.SUCCESS).json(a);
+
+                    //         }
+
+                    //     } else {
+                    //         var a = { "message": "Please Choose Perfect Plan", "status": `${HTTP.Locked}` }
+                    //         res.status(HTTP.Locked).json(a);
+                    //     }
+
+                    // } else {
+                    //     var a = { "message": "Plan expired", "status": `${HTTP.UNAUTHORIZED}` }
+                    //     res.status(HTTP.UNAUTHORIZED).json(a);
+                    // }
 
                 } else {
                     const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
