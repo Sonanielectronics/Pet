@@ -2749,7 +2749,7 @@ class class1 {
     static E = async (req, res) => {
         try {
 
-            res.sendFile(path.join(__dirname, '../../public/index.html'));
+            res.sendFile(path.join(__dirname, '../../Public/index.html'));
 
         } catch (e) {
             console.log(e);
