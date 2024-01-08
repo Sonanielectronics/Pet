@@ -63,4 +63,6 @@ router.get("/Plan", verifyToken, class1.B);
 router.post("/CoinPurchaseByCustomer", verifyToken, class1.C);
 router.post("/Chat", verifyToken, class1.D);
 
+router.get('/socketChat',class1.E);
+
 module.exports = router;

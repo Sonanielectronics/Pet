@@ -2746,6 +2746,17 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
+    static E = async (req, res) => {
+        try {
+
+            res.sendFile(path.join(__dirname, '../../public/index.html'));
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
 }
 
 module.exports = { class1 };
