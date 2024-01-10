@@ -1,48 +1,35 @@
-<!doctype html>
-<html>
-
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Real-time Chat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    #messages {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    #messages li {
-      margin-bottom: 10px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat</title>
 </head>
-
 <body>
   <ul id="messages"></ul>
+  <p>Your unique ID: <span id="userId"></span></p>
   <form id="form" action="">
     <input id="m" autocomplete="off" /><button>Send</button>
   </form>
-
-  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
     $(function () {
-      const socket = io();
+      var socket = io();
+
+      $('#userId').text(socket.id);
+
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+      });
 
       $('form').submit(function () {
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
       });
-
-      socket.on('chat message', function (msg) {
-        $('#messages').append($('<li>').text(msg));
-      });
     });
   </script>
 </body>
-
 </html>

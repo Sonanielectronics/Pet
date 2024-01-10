@@ -14,6 +14,8 @@ const path = require('path');
 const server = http.createServer(app);
 const io = socketIO(server);
 
+var { Todo, Todo2, Todo3, Todo4, Todo5, Todo6 } = require("./model/schema");
+
 app.use(express.static(path.join(__dirname, "..")));
 
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -27,18 +29,43 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3500;
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
 
     console.log('A user connected');
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    const user = {
+        id: socket.id,
+        connectedAt: new Date(),
+    };
+
+    socket.emit('user id', socket.id);
+
+    socket.on('chat message', async (msg) => {
+        io.emit('chat message', `${socket.id}: ${msg}`);
+
+        let data = new Todo6({
+            Sender: socket.id,
+            Message: msg,
+        })
+        await data.save();
+
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
 
+        console.log('User disconnected');
+
+        //   db.collection('users').updateOne(
+        //     { id: socket.id },
+        //     { $set: { disconnectedAt: new Date() } },
+        //     (err) => {
+        //       if (err) {
+        //         console.error('Error storing user disconnection data:', err);
+        //       }
+        //     }
+        //   );
+
+    });
 });
 
 app.use('/', router);

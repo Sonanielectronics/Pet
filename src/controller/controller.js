@@ -2323,7 +2323,7 @@ class class1 {
     static y = async (req, res) => {
         try {
 
-            if (req.EmailORPhone) {
+            if (req.EmailORPhone && req.body._id) {
 
                 var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
                 var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
@@ -2339,7 +2339,22 @@ class class1 {
 
                 if (User) {
 
-                    var SendData = [];
+                    var User4 = await Todo2.findOne({ _id: req.body._id })
+
+                    var SendData = {
+                        "OwnerImage": User.Image,
+                        "PetImage": User4.Image,
+                        "OwnerName": User.Name,
+                        "PetName": User4.Name,
+                        "Address": User4.Address,
+                        "Age": User4.Age,
+                        "Sex": User4.Gender,
+                        "Type": User4.Type,
+                        "Colour": User4.Colour,
+                        "Length": User4.Length,
+                        "Hight": User4.Hight,
+                        "Description": "No idea",
+                    }
 
                     var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
                     res.status(HTTP.SUCCESS).json(message);

@@ -194,4 +194,15 @@ var PlanSchema = new mongoose.Schema({
   
   var Todo5 = mongoose.model("Plancollection", PlanSchema);
 
-module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 };
+  var MessageSchema = new mongoose.Schema({
+    Sender: {
+      type: String,
+    },
+    Message: {
+      type: String,
+    }
+  });
+  
+  var Todo6 = mongoose.model("MessageCollection", MessageSchema);
+
+module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 , Todo6 };
