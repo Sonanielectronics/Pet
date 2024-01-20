@@ -2772,6 +2772,232 @@ class class1 {
             res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
         }
     };
+    static F = async (req, res) => {
+        try {
+
+            var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+            if (User2) {
+                var User = await User2
+            } else if (User3) {
+                var User = await User3
+            } else {
+                // var User = await User2
+                var User = await User3
+            }
+
+            if (User) {
+
+                function compareDates(inputDate, inputDate2) {
+
+                    const inputDateTime = new Date(inputDate);
+                    const inputDateTime2 = new Date(inputDate2);
+
+                    const inputYear = inputDateTime.getFullYear();
+                    const inputMonth = inputDateTime.getMonth() + 1;
+                    const inputDay = inputDateTime.getDate();
+
+                    const inputYear2 = inputDateTime2.getFullYear();
+                    const inputMonth2 = inputDateTime2.getMonth() + 1;
+                    const inputDay2 = inputDateTime2.getDate();
+
+                    if (inputYear > inputYear2 || (inputYear === inputYear2 && inputMonth > inputMonth2) || (inputYear === inputYear2 && inputMonth === inputMonth2 && inputDay > inputDay2)) {
+                        //   return "Future"
+                        return 1
+                    } else if (inputYear === inputYear2 && inputMonth === inputMonth2 && inputDay === inputDay2) {
+                        //   return "Current"
+                        return 0
+                    } else {
+                        //   return "Past"
+                        return -1
+                    }
+
+                }
+
+                const inputDateTime = await User.PlanExpiredDate;
+
+                const inputDateTime2 = new Date();
+
+                const year = inputDateTime2.getFullYear();
+                const month = inputDateTime2.getMonth() + 1;
+                const day = inputDateTime2.getDate();
+
+                let inputDateTime3 = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+                var a = await compareDates(inputDateTime, inputDateTime3);
+
+                if (-1 < a) {
+
+                    if (User.PlanType == "Monthly") {
+
+                        if (User.LastPetViewdDate == inputDateTime3) {
+
+                            if (User.TodatLatViewPetInNumber < 15) {
+
+                                User.TodatLatViewPetInNumber = await User.TodatLatViewPetInNumber + 1;
+                                await User.save();
+
+                                var User = await Todo2.find({})
+
+                                var message = { "message": "Data Load Successfully", "data": User, "status": `${HTTP.SUCCESS}` }
+                                res.status(HTTP.SUCCESS).json(message);
+
+                            } else {
+
+                                var a = { "message": "You Can Not View More Ads Today", "status": `${HTTP.UNAUTHORIZED}` }
+                                res.status(HTTP.UNAUTHORIZED).json(a);
+
+                            }
+
+                        } else {
+
+                            User.LastPetViewdDate = await inputDateTime3;
+                            User.TodatLatViewPetInNumber = await 1;
+                            await User.save();
+
+                            var User = await Todo2.find({})
+
+                            var message = { "message": "Data Load Successfully", "data": User, "status": `${HTTP.SUCCESS}` }
+                            res.status(HTTP.SUCCESS).json(message);
+
+                        }
+
+                    } else {
+                        var a = { "message": "Please Choose Perfect Plan", "status": `${HTTP.Locked}` }
+                        res.status(HTTP.Locked).json(a);
+                    }
+
+                } else {
+                    var a = { "message": "Plan expired", "status": `${HTTP.UNAUTHORIZED}` }
+                    res.status(HTTP.UNAUTHORIZED).json(a);
+                }
+
+            } else {
+                const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                res.status(HTTP.UNAUTHORIZED).json(response);
+            }
+
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static G = async (req, res) => {
+        try {
+
+            var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+            if (User2) {
+                var User = await User2
+            } else if (User3) {
+                var User = await User3
+            } else {
+                // var User = await User2
+                var User = await User3
+            }
+
+            if (User) {
+
+                function compareDates(inputDate, inputDate2) {
+
+                    const inputDateTime = new Date(inputDate);
+                    const inputDateTime2 = new Date(inputDate2);
+
+                    const inputYear = inputDateTime.getFullYear();
+                    const inputMonth = inputDateTime.getMonth() + 1;
+                    const inputDay = inputDateTime.getDate();
+
+                    const inputYear2 = inputDateTime2.getFullYear();
+                    const inputMonth2 = inputDateTime2.getMonth() + 1;
+                    const inputDay2 = inputDateTime2.getDate();
+
+                    if (inputYear > inputYear2 || (inputYear === inputYear2 && inputMonth > inputMonth2) || (inputYear === inputYear2 && inputMonth === inputMonth2 && inputDay > inputDay2)) {
+                        //   return "Future"
+                        return 1
+                    } else if (inputYear === inputYear2 && inputMonth === inputMonth2 && inputDay === inputDay2) {
+                        //   return "Current"
+                        return 0
+                    } else {
+                        //   return "Past"
+                        return -1
+                    }
+
+                }
+
+                const inputDateTime = await User.PlanExpiredDate;
+
+                const inputDateTime2 = new Date();
+
+                const year = inputDateTime2.getFullYear();
+                const month = inputDateTime2.getMonth() + 1;
+                const day = inputDateTime2.getDate();
+
+                let inputDateTime3 = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+                var a = await compareDates(inputDateTime, inputDateTime3);
+
+                if (-1 < a) {
+
+                    if (User.PlanType == "Monthly") {
+
+                        if (User.LastPetViewdDate == inputDateTime3) {
+
+                            if (User.TodatLatViewPetInNumber < 15) {
+
+                                User.TodatLatViewPetInNumber = await User.TodatLatViewPetInNumber + 1;
+                                await User.save();
+
+                                var User = await Todo2.find({})
+
+                                var message = { "message": "Data Load Successfully", "data": User, "status": `${HTTP.SUCCESS}` }
+                                res.status(HTTP.SUCCESS).json(message);
+
+                            } else {
+
+                                var a = { "message": "You Can Not View More Ads Today", "status": `${HTTP.UNAUTHORIZED}` }
+                                res.status(HTTP.UNAUTHORIZED).json(a);
+
+                            }
+
+                        } else {
+
+                            User.LastPetViewdDate = await inputDateTime3;
+                            User.TodatLatViewPetInNumber = await 1;
+                            await User.save();
+
+                            var User = await Todo2.find({})
+
+                            var message = { "message": "Data Load Successfully", "data": User, "status": `${HTTP.SUCCESS}` }
+                            res.status(HTTP.SUCCESS).json(message);
+
+                        }
+
+                    } else {
+                        var a = { "message": "Please Choose Perfect Plan", "status": `${HTTP.Locked}` }
+                        res.status(HTTP.Locked).json(a);
+                    }
+
+                } else {
+                    var a = { "message": "Plan expired", "status": `${HTTP.UNAUTHORIZED}` }
+                    res.status(HTTP.UNAUTHORIZED).json(a);
+                }
+
+            } else {
+                const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                res.status(HTTP.UNAUTHORIZED).json(response);
+            }
+
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
 }
 
 module.exports = { class1 };
