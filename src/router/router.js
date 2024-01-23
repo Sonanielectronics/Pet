@@ -67,4 +67,6 @@ router.get('/socketChat',class1.E);
 router.get("/Adopt", verifyToken, class1.F);
 router.get("/partner", verifyToken, class1.G);
 
+router.get("/Message", verifyToken, class1.H);
+
 module.exports = router;

@@ -194,15 +194,57 @@ var PlanSchema = new mongoose.Schema({
   
   var Todo5 = mongoose.model("Plancollection", PlanSchema);
 
+  var SocketConnectedUserSchema = new mongoose.Schema({
+    Time: {
+        type: String,
+    }
+  });
+  
+  var Todo6 = mongoose.model("SocketConnectedUserCollection", SocketConnectedUserSchema);
+
   var MessageSchema = new mongoose.Schema({
     Sender: {
-      type: String,
+        type: String,
+    },
+    Receiver: {
+        type: String,
     },
     Message: {
       type: String,
     }
   });
   
-  var Todo6 = mongoose.model("MessageCollection", MessageSchema);
+  var Todo8 = mongoose.model("MessageCollection", MessageSchema);
 
-module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 , Todo6 };
+  var UserOfLeavingSchema = new mongoose.Schema({
+    LeavingUserName: {
+        type: String,
+    },
+    LeavingFrom: {
+        type: String,
+    },
+  });
+  
+  var Todo9 = mongoose.model("UserOfLeavingCollection", UserOfLeavingSchema);
+
+  
+  var SocketDiConnectedUserSchema = new mongoose.Schema({
+    Time: {
+        type: String,
+    }
+  });
+  
+  var Todo10 = mongoose.model("SocketDiConnectedUserCollection", SocketDiConnectedUserSchema);
+
+  var UserConnectInformationUserSchema = new mongoose.Schema({
+    User1: {
+        type: String,
+    },
+    User2: {
+        type: String,
+    }
+  });
+  
+  var Todo11 = mongoose.model("UserConnectInformationCollection", UserConnectInformationUserSchema);
+
+module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 , Todo6 , Todo8 , Todo9 , Todo10 , Todo11 };

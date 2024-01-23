@@ -1,4 +1,4 @@
-var { Todo, Todo2, Todo3, Todo4, Todo5 } = require("../model/schema");
+var { Todo, Todo2, Todo3, Todo4, Todo5, Todo6, Todo7, Todo8, Todo9, Todo10 } = require("../model/schema");
 const HTTP = require("../../constant/response.constant");
 
 var jwt = require("jsonwebtoken");
@@ -2985,6 +2985,40 @@ class class1 {
                     var a = { "message": "Plan expired", "status": `${HTTP.UNAUTHORIZED}` }
                     res.status(HTTP.UNAUTHORIZED).json(a);
                 }
+
+            } else {
+                const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
+                res.status(HTTP.UNAUTHORIZED).json(response);
+            }
+
+
+        } catch (e) {
+            console.log(e);
+            var a = { "message": `${e}`, "status": `${HTTP.INTERNAL_SERVER_ERROR}` }
+            res.status(HTTP.INTERNAL_SERVER_ERROR).json(a);
+        }
+    };
+    static H = async (req, res) => {
+        try {
+
+            var User2 = await Todo.findOne({ EmailORPhone: req.EmailORPhone })
+            var User3 = await Todo.findOne({ EmailORPhone2: req.EmailORPhone })
+
+            if (User2) {
+                var User = await User2
+            } else if (User3) {
+                var User = await User3
+            } else {
+                // var User = await User2
+                var User = await User3
+            }
+
+            if (User) {
+
+                var SendData = await Todo8.find({})
+
+                var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                res.status(HTTP.SUCCESS).json(message);
 
             } else {
                 const response = { "message": "Account Does Not Exist", "status": HTTP.UNAUTHORIZED };
