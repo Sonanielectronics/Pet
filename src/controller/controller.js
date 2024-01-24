@@ -2230,8 +2230,9 @@ class class1 {
                 if (User) {
 
                     var User4 = await Todo2.findOne({ _id: req.body._id })
-
+                    
                     var SendData = {
+                        "OwnerNameId": User4.OwnerNameId,
                         "OwnerImage": User.Image,
                         "PetImage": User4.Image,
                         "OwnerName": User.Name,
