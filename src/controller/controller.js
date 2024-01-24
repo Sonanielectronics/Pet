@@ -3015,9 +3015,23 @@ class class1 {
 
             if (User) {
 
-                var SendData = await Todo8.find({})
+                var SendData = [];
+                
+                var SendData1 = await Todo6.find({})
+                var SendData2 = await Todo7.find({})
+                var SendData3 = await Todo8.find({})
 
-                var message = { "message": "Data Load Successfully", "data": SendData, "status": `${HTTP.SUCCESS}` }
+                var SendData4 = await SendData1.reverse();
+                var SendData5 = await SendData2.reverse();
+                var SendData6 = await SendData3.reverse();
+
+                var SendDataOfficial = {
+                    "SocketConnectedUserData": SendData4,
+                    "RoomConnectedUserData": SendData5,
+                    "MessageData": SendData6
+                }
+
+                var message = { "message": "Data Load Successfully", "data": SendDataOfficial, "status": `${HTTP.SUCCESS}` }
                 res.status(HTTP.SUCCESS).json(message);
 
             } else {

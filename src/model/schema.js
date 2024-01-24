@@ -195,12 +195,23 @@ var PlanSchema = new mongoose.Schema({
   var Todo5 = mongoose.model("Plancollection", PlanSchema);
 
   var SocketConnectedUserSchema = new mongoose.Schema({
-    Time: {
+    SocketConnectedUserTime: {
         type: String,
     }
   });
   
   var Todo6 = mongoose.model("SocketConnectedUserCollection", SocketConnectedUserSchema);
+
+  var UserOfEnteringSchema = new mongoose.Schema({
+    Sender: {
+        type: String,
+    },
+    Receiver: {
+        type: String,
+    }
+  });
+  
+  var Todo7 = mongoose.model("UserOfEnteringCollection", UserOfEnteringSchema);
 
   var MessageSchema = new mongoose.Schema({
     Sender: {
@@ -229,7 +240,7 @@ var PlanSchema = new mongoose.Schema({
 
   
   var SocketDiConnectedUserSchema = new mongoose.Schema({
-    Time: {
+    SocketDiConnectedUserTime: {
         type: String,
     }
   });
@@ -247,4 +258,4 @@ var PlanSchema = new mongoose.Schema({
   
   var Todo11 = mongoose.model("UserConnectInformationCollection", UserConnectInformationUserSchema);
 
-module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 , Todo6 , Todo8 , Todo9 , Todo10 , Todo11 };
+module.exports = { Todo , Todo2 , Todo3 , Todo4 , Todo5 , Todo6 , Todo7 , Todo8 , Todo9 , Todo10 , Todo11 };

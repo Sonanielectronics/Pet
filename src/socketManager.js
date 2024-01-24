@@ -1,5 +1,5 @@
 const socketIo = require('socket.io');
-const { Todo, Todo2, Todo3, Todo4, Todo5, Todo6, Todo8, Todo9, Todo10, Todo11 } = require("./model/schema");
+const { Todo, Todo2, Todo3, Todo4, Todo5, Todo6, Todo7, Todo8, Todo9, Todo10, Todo11 } = require("./model/schema");
 
 function setupSocket(server) {
 
@@ -55,6 +55,13 @@ function setupSocket(server) {
         socket.on('joinRoom', async (data) => {
 
             var { username, room } = data;
+
+            let data5 = new Todo7({
+                Sender: username,
+                Receiver: room
+            });
+    
+            await data5.save();
 
             const senderReceiverQuery = {
                 $or: [
